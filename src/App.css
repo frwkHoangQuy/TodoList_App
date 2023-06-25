@@ -32,7 +32,54 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  padding: 32px;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.input-container input {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.input-container button {
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+li button {
+  margin-left: 8px;
+  padding: 4px 8px;
+  font-size: 14px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+li button:hover {
+  background-color: #d32f2f;
 }
