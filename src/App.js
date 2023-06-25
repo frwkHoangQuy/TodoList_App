@@ -3,46 +3,51 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [changeInputIndex, setChangeInputIndex] = useState(0);
   const [changeInputValue, setChangeInputValue] = useState("");
-  const [ulElement, setUlElement] = useState(<ul></ul>);
-  const inputElement = (
-    <input
-      onChange={(e) => setChangeInputValue(e.target.value)}
-      onBlur={e => e.target.value = ''}
-    >
-    </input>
-  )
-  const buttonElement = (
-    <button onClick={handleClick}>
-      Add
-    </button>
-  );
-  function handleClick() {
+  const [listItems, setListItems] = useState([]);
+
+  const handleInputChange = (e) => {
+    setChangeInputValue(e.target.value);
+  };
+
+  const handleAddItemClick = () => {
     if (changeInputValue) {
-      const newLiElement = (
-      <li key={changeInputIndex}>{changeInputValue}</li>
-      );
-      const newButtonElement = (
-        <button key={changeInputIndex} onClick={handleDeleteClick()}>Delete</button>
-      )
-      const updatedUlElement = React.cloneElement(ulElement, {
-        children: [ulElement.props.children, newLiElement, newButtonElement],
-      });
-      setUlElement(updatedUlElement);
-      function handleDeleteClick(){
-      }
+      const newItem = { id: Date.now(), value: changeInputValue };
+      setListItems([...listItems, newItem]);
       setChangeInputValue('');
-      setChangeInputIndex(changeInputIndex+1);
     }
+  };
+
+  const handleDeleteItemClick = (itemId) => {
+    const updatedListItems = listItems.filter((item) => item.id !== itemId);
+    setListItems(updatedListItems);
+  };
+  const handleDeleteAllItemClick = () => {
+    setListItems([]);
   }
-  return (
-    <div style={{ padding: 32 }}>
-      {inputElement}
-      {buttonElement}
-      {ulElement}
+  const divElement = (
+    <div className="container">
+      <h1 className="title">TodoList App</h1>
+      <div className="inputArea">
+        <input
+          className="inputField"
+          value={changeInputValue}
+          onChange={handleInputChange}
+        />
+        <button className="addButton" onClick={handleAddItemClick}>Add</button>
+        <button className='deleteAllButton' onClick={handleDeleteAllItemClick}>Delete All</button>
+      </div>
+      <ul className="todoList">
+        {listItems.map((item) => (
+          <li key={item.id}>
+            {item.value}
+            <button className="deleteButton" onClick={() => handleDeleteItemClick(item.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
-  );
+  )
+  return divElement;
 }
 
 export default App;
