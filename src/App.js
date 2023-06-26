@@ -10,7 +10,7 @@ function App() {
     setChangeInputValue(e.target.value);
   };
 
-  const handleAddItemClick = () => {
+  const handleAddItemClick = (event) => {
     if (changeInputValue) {
       const newItem = { id: Date.now(), value: changeInputValue };
       setListItems([...listItems, newItem]);
@@ -26,7 +26,7 @@ function App() {
     setListItems([]);
   }
   const divElement = (
-    <div className="container">
+    <div className="container" onKeyDown={handleAddItemClick}>
       <h1 className="title">TodoList App</h1>
       <div className="inputArea">
         <input
